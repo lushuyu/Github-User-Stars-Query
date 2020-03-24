@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+ 
+<div ng-app="myApp" ng-controller="siteCtrl"> 
+ 
+<ul>
+  <li ng-repeat="x in names">
+    Name: {{ x.name }} <br>
+	Url: <a ng-href="{{ x.html_url }}"> Click here </a>
+  </li>
+</ul>
+ 
+</div>
+ 
+<script>
+var app = angular.module('myApp', []);
+app.controller('siteCtrl', function($scope, $http) {
+  $http.get("https://api.github.com/users/lushuyu/starred?per_page=10")
+  .then(function (response) {$scope.names = response.data;});
+});
+</script>
+
+
+ 
+</body>
+</html>
